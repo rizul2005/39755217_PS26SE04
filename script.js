@@ -132,11 +132,14 @@ function categorize(description) {
 }
 
 function zScoreFlags(rows) {
+  const spendingOnly = rows.filter(row => row.amount < 0); // only look at money going OUT, not incoming transfers
+
   const byCategory = {};
-  rows.forEach(row => {
+  spendingOnly.forEach(row => {
     row.category = categorize(row.description);
     (byCategory[row.category] ||= []).push(row);
   });
+
 
   const flagged = [];
   Object.values(byCategory).forEach(group => {
@@ -164,7 +167,7 @@ function recurringChargeFlags(rows) {
   // Only meaningful for genuinely recurring, fixed-price charges (subscriptions,
   // memberships) — applying this to variable spend like rideshares or coffee
   // just flags normal day-to-day price variation as "anomalies".
-  const candidates = rows.filter(r => categorize(r.description) === 'subscriptions');
+  const candidates = rows.filterconst candidates = rows.filter(r => r.amount < 0 && categorize(r.description) === 'subscriptions');
 
   const byDescription = {};
   candidates.forEach(row => {
