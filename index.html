@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger — Personal Finance Anomaly Detector</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand-row">
+      <img src="logo.svg" alt="" class="logo" width="36" height="36">
+      <h1 class="wordmark">Ledger</h1>
+    </div>
+    <p class="tagline">Upload a statement. See what's actually unusual.</p>
+  </div>
+</header>
+
+<main>
+  <section class="intake" id="intake">
+    <div class="intake-copy">
+      <h2>Most spending anomalies hide in plain sight.</h2>
+      <p>A subscription that quietly went from $9 to $15. A "convenience fee" that shows up every third order. Ledger reads your statement and points out the transactions that don't match your own patterns — nothing more, nothing less.</p>
+    </div>
+
+    <div class="dropzone" id="dropzone">
+      <input type="file" id="fileInput" accept=".csv" hidden>
+      <p class="dropzone-label">Drop a CSV statement here, or</p>
+      <button class="btn-primary" id="browseBtn">choose a file</button>
+      <p class="dropzone-hint">Date, Description, Amount columns. Processed in your browser — nothing is uploaded.</p>
+    </div>
+  </section>
+
+  <section class="results" id="results" hidden>
+    <div class="results-header">
+      <h2 id="resultsTitle">Flagged transactions</h2>
+      <p id="resultsSummary" class="results-summary"></p>
+    </div>
+    <div class="view-toggle" role="tablist">
+      <button class="toggle-btn active" id="toggleFlagged" role="tab">Flagged only</button>
+      <button class="toggle-btn" id="toggleAll" role="tab">All transactions</button>
+    </div>
+    <div class="ledger-table" id="ledgerTable"></div>
+  </section>
+
+  <section class="empty-state" id="emptyState" hidden>
+    <p>No CSV rows could be read from that file. Check that it has Date, Description, and Amount columns.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Built for PS26-SE 04 — Artificial Intelligence C. Statement data never leaves your device.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
