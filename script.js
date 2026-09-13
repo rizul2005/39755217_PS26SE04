@@ -154,7 +154,7 @@ function zScoreFlags(rows) {
       if (z > 2) {
         flagged.push({
           ...row,
-          reason: `${Math.abs(row.amount).toFixed(2)} is well above your typical ${row.category} spend (avg $${mean.toFixed(2)})`,
+          reason: `${Math.abs(row.amount).toFixed(2)} is well above your typical ${row.category} spend (avg €${mean.toFixed(2)})`,
           severity: z > 3 ? 'high' : 'medium',
         });
       }
@@ -167,7 +167,7 @@ function recurringChargeFlags(rows) {
   // Only meaningful for genuinely recurring, fixed-price charges (subscriptions,
   // memberships) — applying this to variable spend like rideshares or coffee
   // just flags normal day-to-day price variation as "anomalies".
-  const candidates = rows.filterconst candidates = rows.filter(r => r.amount < 0 && categorize(r.description) === 'subscriptions');
+  const candidates = rows.filter(r => r.amount < 0 && categorize(r.description) === 'subscriptions');
 
   const byDescription = {};
   candidates.forEach(row => {
@@ -184,7 +184,7 @@ function recurringChargeFlags(rows) {
       if (prev > 0 && Math.abs(curr - prev) / prev > 0.05) {
         flagged.push({
           ...occurrences[i],
-          reason: `Recurring charge changed from $${prev.toFixed(2)} to $${curr.toFixed(2)}`,
+          reason: `Recurring charge changed from $€{prev.toFixed(2)} to $€{curr.toFixed(2)}`,
           severity: 'medium',
         });
       }
@@ -254,7 +254,7 @@ function rowHtml(r) {
         <p class="row-desc">${escapeHtml(r.description)}</p>
         ${r.reason ? `<p class="row-reason">${escapeHtml(r.reason)}</p>` : ''}
       </div>
-      <div class="row-amount">$${Math.abs(r.amount).toFixed(2)}</div>
+      <div class="row-amount">$€{Math.abs(r.amount).toFixed(2)}</div>
       <div class="row-flag ${flagClass}">${flagLabel}</div>
     </div>
   `;
