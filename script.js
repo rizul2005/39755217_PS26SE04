@@ -184,7 +184,7 @@ function recurringChargeFlags(rows) {
       if (prev > 0 && Math.abs(curr - prev) / prev > 0.05) {
         flagged.push({
           ...occurrences[i],
-          reason: `Recurring charge changed from $€{prev.toFixed(2)} to $€{curr.toFixed(2)}`,
+          reason: `Recurring charge changed from €${prev.toFixed(2)} to €${curr.toFixed(2)}`,
           severity: 'medium',
         });
       }
@@ -254,7 +254,7 @@ function rowHtml(r) {
         <p class="row-desc">${escapeHtml(r.description)}</p>
         ${r.reason ? `<p class="row-reason">${escapeHtml(r.reason)}</p>` : ''}
       </div>
-      <div class="row-amount">$€{Math.abs(r.amount).toFixed(2)}</div>
+      <div class="row-amount">€${Math.abs(r.amount).toFixed(2)}</div>
       <div class="row-flag ${flagClass}">${flagLabel}</div>
     </div>
   `;
